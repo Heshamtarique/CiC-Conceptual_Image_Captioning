@@ -47,5 +47,23 @@ Index(['image/key', 'image/locale', 'ar', 'bn', 'cs', 'da', 'de', 'el', 'en',
 df_en = df[['image/key','en']]
 df_en.tail(8)
 
+
+###################### fetching the final caption from the dataset which is little processed
+def fetch_caption(df):
+    try:
+        df['val_en'] = df['en'].apply(lambda x: x.get("caption/tokenized/lowercase") if isinstance(x, dict) else None)
+    except Exception as e:
+        print(f"Error: {e}")
+
+# lets call it...
+fetch_caption(df_en)
+
+df_en.head(3)
+final_caption_file = df_en.drop(columns=['en'])
+final_caption_file.tail(3)
+
+
+
+
 print(f"caption fora data in english:  {df_en['en'][3599]}")
 
